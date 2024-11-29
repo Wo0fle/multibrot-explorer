@@ -31,6 +31,23 @@ function inSet(cr, ci) {
 
 ////////////////////////////////////////////////////////////////////////////////////
 
+// Interface
+
+let scale = 1.4 // value of 2 sets edges of canvas to 2 (on coord plane)
+let translationX = -0.35 // 0 centers at origin (on coord plane)
+let translationY = 0 // 0 centers at origin (on coord plane)
+
+function saveSettings() {
+    scale = document.getElementById("zoom").value
+    // obv a scale of 0 is an issue
+    translationX = document.getElementById("xCoord").value
+    translationY = document.getElementById("yCoord").value
+
+    draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
 // Rendering
 
 const canvas = document.getElementById('multibrotCanvas');
@@ -56,11 +73,6 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 
 function draw() {
-    scale = 1.4 // value of 2 sets edges of canvas to 2 (on coord plane)
-    translationX = -0.35 // 0 centers at origin (on coord plane)
-    translationY = 0 // 0 centers at origin (on coord plane)
-    // eventually add UI on page to control these, hopefully with mouse and/or kbm
-
     halfPlaneWidth = 2*halfWidth/scale
 
     scaler = scale/halfWidth
@@ -69,7 +81,7 @@ function draw() {
 
     for (let x = -halfWidth; x < halfWidth; x++) {
         for (let y = -halfWidth; y < halfWidth; y++) {
-            setFunc = inSet(scaler*(x+translatorX), -scaler*((y-translatorY)))
+            setFunc = inSet(scaler*(x+translatorX), -scaler*(y-translatorY))
             isIn = setFunc[0]
             whatColor = setFunc[1]
             if (isIn) {
@@ -83,6 +95,24 @@ function draw() {
             ctx.fill();
         }
     }
+    // ctx.fillStyle = "rgb(0,73,255)"
+    // ctx.beginPath();
+    // ctx.arc((0+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.fill();
+
+    // ctx.beginPath();
+    // ctx.arc((-halfPlaneWidth/2+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((-halfPlaneWidth+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((halfPlaneWidth/2+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((halfPlaneWidth+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.fill();
+
+    // ctx.beginPath();
+    // ctx.arc((0+centerCoordX-translatorX), (-halfPlaneWidth/2+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((0+centerCoordX-translatorX), (-halfPlaneWidth+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((0+centerCoordX-translatorX), (halfPlaneWidth/2+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.arc((0+centerCoordX-translatorX), (halfPlaneWidth+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
+    // ctx.fill();
 }
 
 // Initial setup
