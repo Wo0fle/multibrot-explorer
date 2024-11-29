@@ -1,25 +1,26 @@
 // Math
 
 function inSet(cr, ci) {
-
-    // apperently this is wrong
-    // also colors are not working
-
     zr = cr
     zi = ci
 
-    for (let i = 1; i < 16; i++) {
+    // colors dont work properly
+
+    for (let i = 1; i < 20 ; i++) {
         z_mag = Math.sqrt(zr**2 + zi**2)
         
-        if (Math.abs(z_mag) >= 2) { return [false, 17*i] } 
+        if (Math.abs(z_mag) >= 2) { return [false, 13*i] } 
         
-        zr = cr + zr**2 - zi**2
-        zi = 2*zr*zi + ci
+        const _zr = zr**2 - zi**2 + cr
+        const _zi = 2*zr*zi + ci
+        // MAN ARE YOU JOKING THAT IS SOME JAVASCRIPT BS, I HAD THE MATH RIGHT BUT FOR SOME REASON THIS SYNTAX MADE THE DIFFERENCE??????? (max level cope, im sure theres a good reason for this)
+        zr = _zr
+        zi = _zi
     }
 
     z_mag = Math.sqrt(zr**2 + zi**2)
 
-    if (Math.abs(z_mag) >= 2) { return [false, 17*i] } 
+    if (Math.abs(z_mag) >= 2) { return [false, 255] } 
 
     return [true, 0]
 }
@@ -40,8 +41,9 @@ function resizeCanvas() {
         canvas.width = canvas.height;
     }
 
-    centerCoord = canvas.width/2
-    halfWidth = Math.round(centerCoord)
+    centerCoordX = canvas.width/2
+    centerCoordY = centerCoordX
+    halfWidth = Math.round(centerCoordX)
 
     draw();
 }
@@ -50,9 +52,7 @@ function resizeCanvas() {
 window.addEventListener('resize', resizeCanvas);
 
 function draw() {
-    ctx.translate(centerCoord, centerCoord);
     scale=2/halfWidth
-
     for (let x = -halfWidth; x < halfWidth; x++) {
         for (let y = -halfWidth; y < halfWidth; y++) {
             setFunc = inSet(scale*x, -scale*y)
@@ -64,27 +64,10 @@ function draw() {
                 ctx.fillStyle = "rgb(30,"+whatColor+",200)";
             }
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, 2 * Math.PI);
+            ctx.arc(x+centerCoordX, y+centerCoordY, 1, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
-
-    ctx.beginPath();
-    ctx.fillStyle = "red"
-    ctx.arc(0, 0, 5, 0, 2 * Math.PI);
-
-    ctx.arc(halfWidth/2, 0, 5, 0, 2 * Math.PI);
-    ctx.arc(halfWidth, 0, 5, 0, 2 * Math.PI);
-    ctx.arc(-halfWidth/2, 0, 5, 0, 2 * Math.PI);
-    ctx.arc(-halfWidth, 0, 5, 0, 2 * Math.PI);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(0, halfWidth/2, 5, 0, 2 * Math.PI);
-    ctx.arc(0, halfWidth, 5, 0, 2 * Math.PI);
-    ctx.arc(0, -halfWidth/2, 5, 0, 2 * Math.PI);
-    ctx.arc(0, -halfWidth, 5, 0, 2 * Math.PI);
-    ctx.fill();
 //     ctx.fillStyle = 'blue';
 //     ctx.fillRect(0, 0, canvas.width, canvas.height);
 //     ctx.fillStyle = 'white';
