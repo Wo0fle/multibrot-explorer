@@ -8,7 +8,7 @@ function inSet(cr, ci) {
     zr = cr
     zi = ci
 
-    for (let i = 0; i < 15; i++) {
+    for (let i = 1; i < 16; i++) {
         z_mag = Math.sqrt(zr**2 + zi**2)
         
         if (Math.abs(z_mag) >= 2) { return [false, 17*i] } 
@@ -16,6 +16,8 @@ function inSet(cr, ci) {
         zr = cr + zr**2 - zi**2
         zi = 2*zr*zi + ci
     }
+
+    z_mag = Math.sqrt(zr**2 + zi**2)
 
     if (Math.abs(z_mag) >= 2) { return [false, 17*i] } 
 
@@ -49,14 +51,14 @@ window.addEventListener('resize', resizeCanvas);
 
 function draw() {
     ctx.translate(centerCoord, centerCoord);
-    n=2
+    scale=2/halfWidth
 
     for (let x = -halfWidth; x < halfWidth; x++) {
         for (let y = -halfWidth; y < halfWidth; y++) {
-            setFunc = inSet(n*x/halfWidth, n*y/halfWidth)
-            isItInThere = setFunc[0]
+            setFunc = inSet(scale*x, -scale*y)
+            isIn = setFunc[0]
             whatColor = setFunc[1]
-            if (isItInThere) {
+            if (isIn) {
                 ctx.fillStyle = "black"
             } else {
                 ctx.fillStyle = "rgb(30,"+whatColor+",200)";
