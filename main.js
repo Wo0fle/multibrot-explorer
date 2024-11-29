@@ -4,12 +4,16 @@ function inSet(cr, ci) {
     zr = cr
     zi = ci
 
-    // colors dont work properly yet
-
-    for (let i = 1; i < 200 ; i++) { // loads very slow, i love it :|
+    for (let i = 1; i < 200 ; i++) {
+        // loads very slow, i love it :|
+        // also eventually ill have to add a varaible to control the max amount of iterations
+        
         z_mag = Math.sqrt(zr**2 + zi**2)
         
-        if (Math.abs(z_mag) >= 2) { return [false, 13*i] } 
+        if (Math.abs(z_mag) >= 2) { return [false, 100*Math.sqrt(i/10)] }
+        // sqrt is there to scale up small differences near the start of the loop and scale down large differences near the end...
+        // aka to make it look nicer...
+        // if you wanna see the "real" escape color use "255*i/200"
         
         _zr = zr**2 - zi**2 + cr
         zi = 2*zr*zi + ci
@@ -55,7 +59,7 @@ function draw() {
     scale = 1.4 // value of 2 sets edges of canvas to 2 (on coord plane)
     translationX = -0.35 // 0 centers at origin (on coord plane)
     translationY = 0 // 0 centers at origin (on coord plane)
-    // eventually add UI on page to control these, hopefully with mouse or kbm
+    // eventually add UI on page to control these, hopefully with mouse and/or kbm
 
     halfPlaneWidth = 2*halfWidth/scale
 
@@ -71,16 +75,14 @@ function draw() {
             if (isIn) {
                 ctx.fillStyle = "black"
             } else {
-                ctx.fillStyle = "rgb(30,"+whatColor+",200)";
+                ctx.fillStyle = "rgb("+whatColor+","+whatColor+","+whatColor+")";
+                // for now, greyscale is the best way to view the escape colors since the differrence between each color is linear (which is easier to see)
             }
             ctx.beginPath();
             ctx.arc(x+centerCoordX, y+centerCoordY, 1, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
-    ctx.fillStyle = 'white';
-    ctx.font = '25px Verdana';
-    ctx.fillText("colors dont work properly yet", 40, 50);
 }
 
 // Initial setup
