@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root {
+    --woofleBlue: #0049FF;
+}
+
+::selection {
+    background-color: var(--woofleBlue);
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--woofleBlue); 
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #0039c8;     
+}
+
+body {
+    background-color: silver;
+    font-family: 'Inter', Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    text-align: center;
+    margin: 0;
+}
+
+canvas {
+    margin: 30px auto;
+    display: block;
+    border: 10px ridge saddlebrown;
+}
+
+body div {
+    text-align: center;
+    margin: 10px;
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+footer {
+    background-color: black;
+    font-size: smaller;
+}
+
+#cool-guy {
+    display: inline-block;
+    transition: .5s;
+    margin: 20px;
+}
+
+#cool-guy:hover {
+    transform: rotateX(360deg);
+}
+
+footer a:link, a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:active, footer a:hover {
+    text-decoration: underline;
+}

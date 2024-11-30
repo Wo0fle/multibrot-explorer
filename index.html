@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/x-icon" href="./icon.png">
     <script src="main.js" async></script>
-    <style>
-        body {
-          background-color: silver;
-        }
-
-        canvas {
-            margin: auto;
-            display: block;
-        }
-        </style>
     <title>Seby's Multibrot Explorer</title>
 </head>
 <body>
-    <canvas id="multibrotCanvas" style="border:1px solid #000000;"></canvas>
-    <form action="#" autocomplete="off">
-        <input type="text" id="zoom">
-        <input type="text" id="xCoord">
-        <input type="text" id="yCoord">
-        <button onclick="saveSettings()">Save</button>
-    </form>
+    <h1>Seby's Multibrot Explorer</h1>
+    <div><i>scuffed alpha version</i></div>
+    <canvas id="multibrotCanvas"></canvas>
+    <h3>z<sub>n+1</sub> = z<sub>n</sub><sup>p</sup> + c</h3>
+    <div><form action="#" autocomplete="off">
+        Initial value of z (any complex number): <input type="text" id="zr0" placeholder="0" size="10"> + <input type="text" id="zi0" placeholder="0" size="10"> i
+        <br>Value of p (any real number > 0): <input type="text" id="p" placeholder="2" size="10">
+        <br><br>"Zoom": <input type="text" id="zoom" placeholder="2" size="10"> <span style="color:dimgray;">idk what to call this setting but when you get closer to 0 it gets more zoomed in</span>
+        <br>Center at (x,y): (<input type="text" id="xCoord" placeholder="0" size="10">, <input type="text" id="yCoord" placeholder="0" size="10">)
+        <br><br>Maximum number of iterations: <input type="text" id="maxIter" placeholder="200" size="10"> <span style="color:dimgray;">the algorithm will go through this amount of iterations before giving up and assuming that the current point is in the set. increase this number to increase precision (but keep in mind it also increases loading times)</span>
+        <br><br><button onclick="saveSettings()">Draw</button><br><br><br>
+    </form></div>
+    <footer><div id="cool-guy"><a target="_blank" href="github.com/Wo0fle/multibrot-explorer/">random content will be made</a></div></footer>
 </body>
 </html>

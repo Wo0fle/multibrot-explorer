@@ -1,49 +1,83 @@
+// Interface
+
+let zr0 = 0
+let zi0 = 0
+let p = 2 // Mandelbrot set by default
+
+let scale = 2 // value of 2 sets edges of canvas to 2 (on coord plane)
+let translationX = 0
+let translationY = 0
+
+let maxI = 200 // maximum amount of iterations
+
+function saveSettings() {
+    zr0Value = document.getElementById("zr0").value
+    zi0Value = document.getElementById("zi0").value
+    pValue = document.getElementById("p").value
+
+    if (Number.isFinite(Number(zr0Value)) && zr0Value != "") {
+        zr0 = zr0Value
+    } else { zr0 = 0 }
+    if (Number.isFinite(Number(zi0Value)) && zi0Value != "") {
+        zi0 = zi0Value
+    } else { zi0 = 0 }
+    if (Number.isFinite(Number(pValue)) && pValue != "") {
+        p = pValue
+    } else { p = 2 }
+
+    zoomValue = document.getElementById("zoom").value
+    xCoordValue = document.getElementById("xCoord").value
+    yCoordValue = document.getElementById("yCoord").value
+
+    if (Number.isFinite(Number(zoomValue)) && zoomValue != 0) {
+        scale = zoomValue
+    } else { scale = 2 }
+    if (Number.isFinite(Number(xCoordValue)) && xCoordValue != "") {
+        translationX = xCoordValue
+    } else { translationX = 0 }
+    if (Number.isFinite(Number(yCoordValue)) && yCoordValue != "") {
+        translationY = yCoordValue
+    } else { translationY = 0 }
+
+    maxIterValue = document.getElementById("maxIter").value
+
+    if (Number.isFinite(Number(maxIterValue)) && maxIterValue >= 1) {
+        maxI = maxIterValue
+    } else { maxI = 200 }
+
+    draw();
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
 // Math
 
 function inSet(cr, ci) {
-    zr = cr
-    zi = ci
+    _zr = ((zr0**2+zi0**2)**(p/2))*Math.cos(p*Math.atan2(zi0, zr0)) + cr
+    zi = ((zr0**2+zi0**2)**(p/2))*Math.sin(p*Math.atan2(zi0, zr0)) + ci
+    zr = _zr
 
-    for (let i = 1; i < 200 ; i++) {
+    for (let i = 1; i < maxI ; i++) {
         // loads very slow, i love it :|
         // also eventually ill have to add a varaible to control the max amount of iterations
         
         z_mag = Math.sqrt(zr**2 + zi**2)
         
-        if (Math.abs(z_mag) >= 2) { return [false, 100*Math.sqrt(i/10)] }
+        if (Math.abs(z_mag) >= 2) { return [false, i] }
         // sqrt is there to scale up small differences near the start of the loop and scale down large differences near the end...
         // aka to make it look nicer...
         // if you wanna see the "real" escape color use "255*i/200"
         
-        _zr = zr**2 - zi**2 + cr
-        zi = 2*zr*zi + ci
-        // NOTE 1: MAN ARE YOU JOKING THAT IS SOME JAVASCRIPT BS, I HAD THE MATH RIGHT BUT FOR SOME REASON THIS SYNTAX MADE THE DIFFERENCE??????? (max level cope, im sure theres a good reason for this)
-        // NOTE 2: im stupid
+        _zr = ((zr**2+zi**2)**(p/2))*Math.cos(p*Math.atan2(zi, zr)) + cr
+        zi = ((zr**2+zi**2)**(p/2))*Math.sin(p*Math.atan2(zi, zr)) + ci
         zr = _zr
     }
 
     z_mag = Math.sqrt(zr**2 + zi**2)
 
-    if (Math.abs(z_mag) >= 2) { return [false, 255] } 
+    if (Math.abs(z_mag) >= 2) { return [false, maxI] } 
 
     return [true, 0]
-}
-
-////////////////////////////////////////////////////////////////////////////////////
-
-// Interface
-
-let scale = 1.4 // value of 2 sets edges of canvas to 2 (on coord plane)
-let translationX = -0.35 // 0 centers at origin (on coord plane)
-let translationY = 0 // 0 centers at origin (on coord plane)
-
-function saveSettings() {
-    scale = document.getElementById("zoom").value
-    // obv a scale of 0 is an issue
-    translationX = document.getElementById("xCoord").value
-    translationY = document.getElementById("yCoord").value
-
-    draw();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -52,6 +86,7 @@ function saveSettings() {
 
 const canvas = document.getElementById('multibrotCanvas');
 const ctx = canvas.getContext('2d');
+const colors = ['#365fc9', '#416fcd', '#4d7fd1', '#598fd5', '#649fd9', '#70afde', '#7cbfe2', '#87cfe6', '#93dfea', '#9fefef'] // genned by https://davidjohnstone.net/lch-lab-colour-gradient-picker
 
 function resizeCanvas() {
     if (window.innerHeight < window.innerWidth) {
@@ -75,9 +110,9 @@ window.addEventListener('resize', resizeCanvas);
 function draw() {
     halfPlaneWidth = 2*halfWidth/scale
 
-    scaler = scale/halfWidth
-    translatorX = translationX*halfPlaneWidth
-    translatorY = translationY*halfPlaneWidth
+    let scaler = scale/halfWidth
+    let translatorX = translationX*halfPlaneWidth/2
+    let translatorY = translationY*halfPlaneWidth/2
 
     for (let x = -halfWidth; x < halfWidth; x++) {
         for (let y = -halfWidth; y < halfWidth; y++) {
@@ -87,15 +122,14 @@ function draw() {
             if (isIn) {
                 ctx.fillStyle = "black"
             } else {
-                ctx.fillStyle = "rgb("+whatColor+","+whatColor+","+whatColor+")";
-                // for now, greyscale is the best way to view the escape colors since the differrence between each color is linear (which is easier to see)
+                ctx.fillStyle = colors[whatColor % colors.length];
             }
             ctx.beginPath();
             ctx.arc(x+centerCoordX, y+centerCoordY, 1, 0, 2 * Math.PI);
             ctx.fill();
         }
     }
-    // ctx.fillStyle = "rgb(0,73,255)"
+    // ctx.fillStyle = "red"
     // ctx.beginPath();
     // ctx.arc((0+centerCoordX-translatorX), (0+centerCoordY+translatorY), 2, 0, 2 * Math.PI);
     // ctx.fill();
