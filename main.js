@@ -63,10 +63,7 @@ function inSet(cr, ci) {
         
         z_mag = Math.sqrt(zr**2 + zi**2)
         
-        if (Math.abs(z_mag) >= 2) { return [false, i] }
-        // sqrt is there to scale up small differences near the start of the loop and scale down large differences near the end...
-        // aka to make it look nicer...
-        // if you wanna see the "real" escape color use "255*i/200"
+        if (z_mag > 2) { return [false, i] }
         
         _zr = ((zr**2+zi**2)**(p/2))*Math.cos(p*Math.atan2(zi, zr)) + cr
         zi = ((zr**2+zi**2)**(p/2))*Math.sin(p*Math.atan2(zi, zr)) + ci
@@ -75,7 +72,7 @@ function inSet(cr, ci) {
 
     z_mag = Math.sqrt(zr**2 + zi**2)
 
-    if (Math.abs(z_mag) >= 2) { return [false, maxI] } 
+    if (z_mag > 2) { return [false, maxI] } 
 
     return [true, 0]
 }
