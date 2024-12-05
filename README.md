@@ -1,3 +1,9 @@
+# CURRENTLY MIGRATING TO A [GODOT PROJECT](https://github.com/Wo0fle/fractalscape)
+
+# I WONT DELETE THIS REPO BUT WHEN FRACTALSCAPE IS AT A GOOD POINT I WILL PROMOTE THAT HERE (BECAUSE IT WILL BE BETTER)
+
+<sub>Original ReadMe:</sub>
+
 # Seby's Multibrot Explorer
  
 ### Explore Multibrots with this amazing and totally not scuffed website!
@@ -18,11 +24,3 @@ https://wo0fle.github.io/multibrot-explorer/
 * Aided by:
   * [How to Code the Mandelbrot Set - Toby Ho](https://www.youtube.com/playlist?list=PLSq9OFrD2Q3DXbBbW4xjjtW6QjAT8J00H)
   * [Multibrot Set - Wikipedia](https://en.wikipedia.org/wiki/Multibrot_set)
-
-## Features to Be Added:
-* Parametrization of c (Julia sets yay!)
-* Allowing negative values of p (skill issue bro just program the better negative exponent algorithm bro)
-  * Allowing complex values of p?
-    * Parametrization of p??? like in 2swap's video???
-* FASTER LOADING TIMES FOR PETE'S SAKE
-* May migrate to a Godot project?
