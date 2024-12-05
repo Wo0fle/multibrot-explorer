@@ -11,12 +11,13 @@
 <body>
     <h1>Seby's Multibrot Explorer</h1>
     <div><i>scuffed alpha version</i></div>
+    <h1>A <a href="https://github.com/Wo0fle/fractalscape" target="_blank">BETTER VERSION</a> OF THIS WILL EVENTUALLY EXIST</h1>
     <canvas id="multibrotCanvas"></canvas>
     <h3>z<sub>n+1</sub> = z<sub>n</sub><sup>p</sup> + c</h3>
     <div><form action="#" autocomplete="off">
         Initial value of z (any complex number): <input type="text" id="zr0" placeholder="0" size="10"> + <input type="text" id="zi0" placeholder="0" size="10"> i
         <br>Value of p (any real number > 0): <input type="text" id="p" placeholder="2" size="10">
-        <br><br>"Zoom": <input type="text" id="zoom" placeholder="2" size="10"> <span style="color:dimgray;">idk what to call this setting but when you get closer to 0 it gets more zoomed in</span>
+        <br><br>"Zoom": <input type="text" id="zoom" placeholder="2" size="10"> <span style="color:dimgray;">idk what to call this setting but this is the distance from the center of the canvas to the edge along the x and y axis. the closer it is to 0, the more zoomed in it gets (but keep in mind it also increases loading times)</span>
         <br>Center at (x,y): (<input type="text" id="xCoord" placeholder="0" size="10">, <input type="text" id="yCoord" placeholder="0" size="10">)
         <br><br>Maximum number of iterations: <input type="text" id="maxIter" placeholder="200" size="10"> <span style="color:dimgray;">the algorithm will go through this amount of iterations before giving up and assuming that the current point is in the set. increase this number to increase precision (but keep in mind it also increases loading times)</span>
         <br><br><button onclick="saveSettings()">Draw</button><br><br><br>

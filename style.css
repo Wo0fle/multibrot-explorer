@@ -46,6 +46,11 @@ h1, h3 {
     text-align: center;
 }
 
+a:link, a:visited {
+    color: var(--woofleBlue);
+    text-decoration: underline;
+}
+
 footer {
     background-color: black;
     font-size: smaller;
@@ -61,7 +66,7 @@ footer {
     transform: rotateX(360deg);
 }
 
-footer a:link, a:visited {
+footer a:link, footer a:visited {
     color: white;
     text-decoration: none;
 }
