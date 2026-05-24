@@ -16,7 +16,7 @@ https://wo0fle.github.io/multibrot-explorer/
 
 ## Credits:
 
-<sup>for the math parts... whenever i had a syntax skill issue i just used google</sup>
+<sup>whenever i had a syntax skill issue i just used google</sup>
 
 * Inspired by: 
   * [Mandelbrot's Evil Twin - 2swap](https://www.youtube.com/watch?v=Ed1gsyxxwM0)
